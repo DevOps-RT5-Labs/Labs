@@ -23,15 +23,34 @@ ssh-add ~/.ssh/id_github
 ## Test Connection
 ssh -T git@github.com
 ```
+![](assets/ssh.png)
 
-- Initiate a Local Git Repository and use git add, git status, git commit and git log
-- Create a Remote Repository and Sync the Local Repository
-- Add a Collaborator to commit and pull his changes
+### Initiate a Local Git Repository and use git add, git status, git commit and git log
+
+![](assets/init.png)
+![](assets/commit.png)
+![](assets/logs.png)
+
+### Create a Remote Repository and Sync the Local Repository
+![](assets/empty%20repo.png)
+![](assets/remote.png)
+![](assets/remote.png)
+
+### Add a Collaborator to commit and pull his changes
 
 ## Part 2
 
-- git branch, git checkout, git merge, git branch -d
-- Merge conflicts and commit it to remote repository
-- Propose a development flow ( for example GitFlow) with versioning and tags
-- GitFlow → `main`, `develop`, `release` (bugs fixes and release oriented), `hotfix` (critical production bug fixes)
-- Redo Collaboration part
+### git branch, git checkout, git merge, git branch -d
+![](assets/branch.png)
+
+### Merge conflicts and commit it to remote repository
+
+
+### Propose a development flow (for example GitFlow) with versioning and tags
+- We can have a `main` branch for the production environment
+- We can have a `dev` branch for the development environment
+- We can have a `release` branch for the release/staging environment
+- For each User story, a seperate branch will be created for it
+- We can have a `hotfix` branch for critical production bug fixes
+
+### Redo Collaboration part
