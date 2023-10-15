@@ -37,6 +37,7 @@ ssh -T git@github.com
 ![](assets/remote.png)
 
 ### Add a Collaborator to commit and pull his changes
+> TODO
 
 ## Part 2
 
@@ -44,6 +45,7 @@ ssh -T git@github.com
 ![](assets/branch.png)
 
 ### Merge conflicts and commit it to remote repository
+> TODO
 
 
 ### Propose a development flow (for example GitFlow) with versioning and tags
@@ -54,3 +56,4 @@ ssh -T git@github.com
 - We can have a `hotfix` branch for critical production bug fixes
 
 ### Redo Collaboration part
+> TODO
