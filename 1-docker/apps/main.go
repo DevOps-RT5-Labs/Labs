@@ -26,7 +26,7 @@ func main() {
             return c.String(http.StatusInternalServerError, err.Error())
         }
 
-        return c.String(http.StatusOK, "OK")
+        return c.String(http.StatusOK, "DONE")
     })
 
     e.GET("/:key", func(c echo.Context) error {

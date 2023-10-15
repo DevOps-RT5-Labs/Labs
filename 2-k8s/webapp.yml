@@ -1,0 +1,82 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: web-app
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kv
+  namespace: web-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: kv
+  template:
+    metadata:
+      labels:
+        app: kv
+    spec:
+      containers:
+        - name: kv
+          image: redis:alpine3.18
+          ports:
+            - containerPort: 6379
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: kv
+  namespace: web-app
+spec:
+  selector:
+    app: kv
+  ports:
+    - port: 6379
+      targetPort: 6379
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: web
+  namespace: web-app
+spec:
+  replicas: 2
+  strategy: 
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+  selector:
+    matchLabels:
+      app: web
+  template:
+    metadata:
+      labels:
+        app: web
+    spec:
+      containers:
+        - name: web
+          image: devops-demo-app:v0.1
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 1323
+          env:
+            - name: KV_HOSTNAME
+              value: kv
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: web
+  namespace: web-app
+spec:
+  type: NodePort
+  selector:
+    app: web
+  ports:
+    - port: 1323
+      targetPort: 1323
+      nodePort: 31000
+---
