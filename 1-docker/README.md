@@ -69,8 +69,18 @@ CMD ["/app/main"]
 This is the output of building the image
 ![](assets/build.png)
 
-- Run a database container and test the interaction
-- Make the app as docker-compose 
+When we change "Hello, World" to "Hello, There" and rebuild the docker image, the command `RUN go mod download` will be cached and the build will be faster, thanks to the layering system of docker.
+![](assets/layers.png)
+
+
+### Run a database container and test the interaction
+For this step, we have added a file called `kv.go` which has utilities to interact with **Redis**, an In-Memory Database. Next we changed the `main.go` file to add 2 routes, one to set a key-value pair and another to get the value of a key. The Redis hostname is passed as an environment variable to the container, called `KV_HOSTNAME`.
+
+To simulate an interaction between 2 seperate containers, being the golang web server and an instance of Redis, we will use Docker network bridges. Here is how we have done it.
+![](assets/docker-net.png)
+
+### Docker Compose
+
 - Using Docker in CI and Production best practices
 - Create a Jenkins Pipeline to pull code from GitHub, build it, and push it to dockerhub
 - Add another Jenkins Pipeline and use something else (maven, Ansible…) -let’s do snyk-
