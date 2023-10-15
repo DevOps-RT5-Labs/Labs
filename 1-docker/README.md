@@ -105,6 +105,42 @@ networks:
 
 ![](assets/compose.png)
 
-- Using Docker in CI and Production best practices
-- Create a Jenkins Pipeline to pull code from GitHub, build it, and push it to dockerhub
+### Deployment Options
+Since our app is now dockerized, we can push it to a central repository for docker images, like DockerHub, whenever a new release is ready. In production, we can pull the image from DockerHub and run it on a server. 
+Some of the good practices that we can follow are:
+- Tag each docker image with a unique tag and not "latest"
+- Use a CI/CD tool to automate the process of building and pushing the image to DockerHub
+- While this is being a testing environment, for actual production applications, we need a centralized private repository for the images, like AWS ECR or GitLab Container Registry, since DockerHub is public and anyone can pull the image and run it.
+
+
+### Jenkins Pipeline
+To run Jenkins, we will use a docker image for it, for the ease and test only. In production, we will use a dedicated server for it.
+
+After initiating the Jenkins server, we will create a pipeline that will pull the code from GitHub, build it, and push it to DockerHub, this is the Jenkinsfile for it:
+```groovy
+pipeline {
+    agent any
+    stages {
+        stage('Build') {
+            steps {
+                // define an environment variable for a tag for this build
+                sh 'export TAG=$(git rev-parse --short HEAD)'
+                // build the docker image and tag it with the tag we defined
+                sh 'docker build -t devops-demo-app:$TAG .'
+            }
+        }
+        stage('Push') {
+            steps {
+                withCredentials([usernamePassword(credentialsId: 'dockerhub', passwordVariable: 'password', usernameVariable: 'username')]) {
+                    sh 'docker login -u $username -p $password'
+                }
+                sh 'docker tag devops-demo-app:latest mohamedelgawady/devops-demo-app:latest'
+                sh 'docker push mohamedelgawady/devops-demo-app:latest'
+            }
+        }
+    }
+}
+```
+
+
 - Add another Jenkins Pipeline and use something else (maven, Ansible…) -let’s do snyk-
