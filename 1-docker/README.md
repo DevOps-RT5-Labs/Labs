@@ -80,6 +80,30 @@ To simulate an interaction between 2 seperate containers, being the golang web s
 ![](assets/docker-net.png)
 
 ### Docker Compose
+It is very obvious, that we have accomplished the previous response through running a lot of commands, and debugging it and changing anything will be a nightmare. So, we will use Docker Compose to automate the process and reduce the complexity and toil.
+The same commands we have executed are equivalent to the following YAML file
+```yaml
+version: "3"
+
+services:
+  web:
+    image: devops-demo-app
+    ports:
+      - 1323:1323
+    environment:
+      - KV_HOSTNAME=kv
+
+  kv:
+    image: redis:alpine3.18
+    ports:
+      - 6379
+
+networks:
+  default:
+    name: web-app-net
+```
+
+![](assets/compose.png)
 
 - Using Docker in CI and Production best practices
 - Create a Jenkins Pipeline to pull code from GitHub, build it, and push it to dockerhub
