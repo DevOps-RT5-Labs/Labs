@@ -60,3 +60,6 @@ ssh -T git@github.com
 - We can have a `release` branch for the release/staging environment
 - For each User story, a seperate branch will be created for it
 - We can have a `hotfix` branch for critical production bug fixes
+
+Here's a Demo, based on the current repository:
+![](assets/graph.png)
