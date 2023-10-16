@@ -42,7 +42,6 @@ When we update the response of one of the endpoints, from "OK" to "DONE", we upd
 ## Monitoring
 
 ### Grafana and Prometheus
-- We followed this [guide](https://grafana.com/docs/grafana-cloud/monitor-infrastructure/kubernetes-monitoring/configuration/configure-infrastructure-manually/prometheus/prometheus-operator/) to install Prometheus and Grafana on our cluster.
 
 <!--
 - Test Metrics and Logging with Any tools.
