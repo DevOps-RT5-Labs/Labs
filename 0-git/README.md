@@ -37,7 +37,9 @@ ssh -T git@github.com
 ![](assets/remote.png)
 
 ### Add a Collaborator to commit and pull his changes
-> TODO
+![](assets/collaborator.png)
+![](assets/pull.png)
+![](assets/pull-logs.png)
 
 ## Part 2
 
@@ -45,7 +47,11 @@ ssh -T git@github.com
 ![](assets/branch.png)
 
 ### Merge conflicts and commit it to remote repository
-> TODO
+![](assets/pull-conflict.png)
+![](assets/conflict.png)
+![](assets/after-conflict.png)
+![](assets/logs-after-conflict.png)
+
 
 
 ### Propose a development flow (for example GitFlow) with versioning and tags
@@ -54,6 +60,3 @@ ssh -T git@github.com
 - We can have a `release` branch for the release/staging environment
 - For each User story, a seperate branch will be created for it
 - We can have a `hotfix` branch for critical production bug fixes
-
-### Redo Collaboration part
-> TODO
