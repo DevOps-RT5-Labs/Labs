@@ -6,3 +6,10 @@ services:
     ports:
       - "8080:8080" # this is the port for the jenkins web interface
       - "50000:50000" # this is the port for the jenkins slave agent
+
+    volumes:
+      - jenkins_home:/var/jenkins_home # this is the volume for the jenkins home directory
+
+
+volumes:
+  jenkins_home: 
