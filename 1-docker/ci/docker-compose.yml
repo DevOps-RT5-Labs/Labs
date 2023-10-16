@@ -1,8 +1,12 @@
 version: "3"
 
 services:
-  jenkins:
+  ci-server:
     image: jenkins/jenkins:lts
     ports:
-      - "8080:8080" # this is the port for the jenkins web interface
-      - "50000:50000" # this is the port for the jenkins slave agent
+      - "8080:8080"
+    volumes:
+      - jenkins_home:/var/jenkins_home 
+
+volumes:
+  jenkins_home:
