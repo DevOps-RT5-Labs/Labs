@@ -119,28 +119,58 @@ To run Jenkins, we will use a docker image for it, for the ease and test only. I
 After initiating the Jenkins server, we will create a pipeline that will pull the code from GitHub, build it, and push it to DockerHub, this is the Jenkinsfile for it:
 ```groovy
 pipeline {
-    agent any
-    stages {
-        stage('Build') {
-            steps {
-                // define an environment variable for a tag for this build
-                sh 'export TAG=$(git rev-parse --short HEAD)'
-                // build the docker image and tag it with the tag we defined
-                sh 'docker build -t devops-demo-app:$TAG .'
-            }
+  agent any
+  
+
+  environment {
+    DOCKERHUB_CREDENTIALS = credentials('dockerhub')
+  }
+
+  stages {
+      stage('Build Docker Image') {
+        when {
+            branch "dev"
         }
-        stage('Push') {
-            steps {
-                withCredentials([usernamePassword(credentialsId: 'dockerhub', passwordVariable: 'password', usernameVariable: 'username')]) {
-                    sh 'docker login -u $username -p $password'
-                }
-                sh 'docker tag devops-demo-app:latest mohamedelgawady/devops-demo-app:latest'
-                sh 'docker push mohamedelgawady/devops-demo-app:latest'
-            }
+
+          steps {
+            echo 'building ...'
+            sh 'docker build -t niemandx/devops-demo-app:latest 1-docker/apps'
+         }
+      }
+
+      stage('deploy docker images!') {
+           when {
+              branch "dev"
+          }
+          steps {
+            echo 'Login to DockerHub'
+            sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
+
+            echo 'building ...'
+            sh 'docker push niemandx/devops-demo-app:latest'
+         }
+      }
+  }
+
+    post {
+        always {
+            sh 'docker logout'
         }
     }
 }
 ```
+This pipelines does as follows:
+- Pull the code from GitHub
+- Build the docker image
+- Push the image to DockerHub using the credentials we have added to Jenkins `DOCKERHUB_CREDENTIALS`
 
+![](assets/jenkins.png)
+![](assets/dockerhub.png)
+
+To extend the pipeline a little bit, We have added another step to scan for vulnerable dependencies using [Snyk](https://snyk.io) and fail the build if any vulnerabilities are found.
+Plus, we are now calculating the hash of the image and tagging it with it, and eliminate the `latest` tag, since it is not a good practice to use it.
+
+```groovy
+```
 
 - Add another Jenkins Pipeline and use something else (maven, Ansible…) -let’s do snyk-
