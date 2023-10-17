@@ -22,7 +22,7 @@ pipeline {
 
       stage('deploy docker images!') {
            when {
-              branch "test"
+              branch "dev"
           }
           steps {
             echo 'Login to DockerHub'
