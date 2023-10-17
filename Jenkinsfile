@@ -14,7 +14,7 @@ pipeline {
 
           steps {
             echo 'building ...'
-            sh 'docker build -t devops-demo-app:latest .'
+            sh 'docker build -t devops-demo-app:latest 1-docker/apps'
          }
       }
 
