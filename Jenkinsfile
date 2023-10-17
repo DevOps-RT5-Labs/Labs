@@ -14,11 +14,9 @@ pipeline {
 
           steps {
             echo 'building ...'
-            sh 'docker build -t devops-demo-app:latest 1-docker/apps'
+            sh 'docker build -t niemandx/devops-demo-app:latest 1-docker/apps'
          }
       }
-
-
 
       stage('deploy docker images!') {
            when {
@@ -29,7 +27,7 @@ pipeline {
             sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
 
             echo 'building ...'
-            sh 'docker push devops-demo-app:latest'
+            sh 'docker push niemandx/devops-demo-app:latest'
          }
       }
   }
