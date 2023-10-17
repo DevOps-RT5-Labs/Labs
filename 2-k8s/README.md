@@ -37,6 +37,7 @@ We can deploy the application using `webapp.yml` file in the current directory. 
 ![](assets/deps.png)
 
 When we update the response of one of the endpoints, from "OK" to "DONE", we update the image and apply the changes to the cluster. We can see that the pods are being updated one by one, and the app overall is still available.
+
 ![](assets/rolling.png)
 
 ## Monitoring
@@ -45,4 +46,8 @@ When we update the response of one of the endpoints, from "OK" to "DONE", we upd
 
 <!--
 - Test Metrics and Logging with Any tools.
-- Propose a CI/CD Pipeline that interacts with Kubernetes, DockerHub, Ansible… but we’re Cool so we’re doing ArgoCD -->
+-->
+
+### GitOps
+
+As part of a delivery pipeline for Kubernetes, we can use GitOps to deploy our application with ArgoCD.

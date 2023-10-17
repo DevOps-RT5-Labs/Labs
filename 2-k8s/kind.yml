@@ -6,5 +6,8 @@ nodes:
   extraPortMappings:
     - containerPort: 31000
       hostPort: 31000
+    # ArgoCD & Prometheus
+    - containerPort: 31001
+      hostPort: 31001
 - role: worker
 - role: worker
