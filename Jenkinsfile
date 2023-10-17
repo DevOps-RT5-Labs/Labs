@@ -1,9 +1,9 @@
 pipeline {
   agent any
   
-
   environment {
     DOCKERHUB_CREDENTIALS = credentials('dockerhub')
+    SNYK_TOKEN = credentials('snyk')
   }
 
   stages {
@@ -14,22 +14,34 @@ pipeline {
 
           steps {
             echo 'building ...'
-            sh 'docker build -t devops-demo-app:latest .'
+            sh 'HASH=$(git rev-parse --short HEAD) && docker build -t niemandx/devops-demo-app:$HASH 1-docker/apps'
+         }
+      }
+
+      stage('scan for vulnerable packages!') {
+          when {
+              branch "dev"
+          }
+          steps {
+            echo 'Login to Snyk'
+            sh 'snyk auth $SNYK_TOKEN'
+
+            echo 'scanning ...'
+            sh 'HASH=$(git rev-parse --short HEAD) && snyk container test niemandx/devops-demo-app:$HASH --severity-threshold=high'
          }
       }
 
 
-
       stage('deploy docker images!') {
            when {
-              branch "test"
+              branch "dev"
           }
           steps {
             echo 'Login to DockerHub'
             sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
-
+            
             echo 'building ...'
-            sh 'docker build -t devops-demo-app:latest .'
+            sh 'HASH=$(git rev-parse --short HEAD) && docker push niemandx/devops-demo-app:$HASH'
          }
       }
   }
