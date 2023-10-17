@@ -27,7 +27,7 @@ pipeline {
             sh 'snyk auth $SNYK_TOKEN'
 
             echo 'scanning ...'
-            sh 'snyk test'
+            sh 'HASH=$(git rev-parse --short HEAD) && snyk container test niemandx/devops-demo-app:$HASH'
          }
       }
 
