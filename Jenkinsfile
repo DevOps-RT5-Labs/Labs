@@ -15,8 +15,7 @@ pipeline {
 
           steps {
             echo 'building ...'
-            sh 'HASH=$(git rev-parse --short HEAD) '
-            sh 'docker build -t niemandx/devops-demo-app:$HASH 1-docker/apps'
+            sh 'HASH=$(git rev-parse --short HEAD) && docker build -t niemandx/devops-demo-app:$HASH 1-docker/apps'
          }
       }
 
@@ -43,8 +42,7 @@ pipeline {
             sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
 
             echo 'building ...'
-            sh 'HASH=$(git rev-parse --short HEAD) '
-            sh 'docker push niemandx/devops-demo-app:$HASH'
+            sh 'HASH=$(git rev-parse --short HEAD) && docker push niemandx/devops-demo-app:$HASH'
          }
       }
   }
