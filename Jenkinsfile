@@ -1,7 +1,6 @@
 pipeline {
   agent any
   
-
   environment {
     DOCKERHUB_CREDENTIALS = credentials('dockerhub')
     SNYK_TOKEN = credentials('snyk')
@@ -40,7 +39,7 @@ pipeline {
           steps {
             echo 'Login to DockerHub'
             sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
-
+            
             echo 'building ...'
             sh 'HASH=$(git rev-parse --short HEAD) && docker push niemandx/devops-demo-app:$HASH'
          }
