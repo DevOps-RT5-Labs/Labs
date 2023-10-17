@@ -227,3 +227,14 @@ pipeline {
 }
 ```
 
+The pipeline failed because there's an issue!
+
+![](assets/pipelines.png)
+![](assets/jenkins-logs.png)
+
+
+The severity of that vulnerability is **Medium**, we can tell snyk to only capture vulnerabilities with **high** severity using `--severity-threshold=high` flag.
+
+![](assets/successful-pipeline.png)
+![](assets/successful-logs.png)
+
