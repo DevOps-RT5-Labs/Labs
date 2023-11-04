@@ -58,7 +58,8 @@ spec:
     spec:
       containers:
         - name: web
-          image: devops-demo-app:v0.1
+          # image: devops-demo-app:v0.1
+          image: devops-demo-app
           imagePullPolicy: Never
           ports:
             - containerPort: 1323

@@ -1,5 +1,6 @@
 # Lab 1 → Git & GitHub
 
+> Prepared by Mohamed Sofiene Barka, Mohamed Rafraf, Jihene Ben Tekaya
 ## Part 1
 
 ### Install and Configure Git
