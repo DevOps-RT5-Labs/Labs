@@ -3,11 +3,5 @@ apiVersion: kind.x-k8s.io/v1alpha4
 name: devops-lab
 nodes:
 - role: control-plane
-  extraPortMappings:
-    - containerPort: 31000
-      hostPort: 31000
-    # ArgoCD & Prometheus
-    - containerPort: 31001
-      hostPort: 31001
 - role: worker
 - role: worker
